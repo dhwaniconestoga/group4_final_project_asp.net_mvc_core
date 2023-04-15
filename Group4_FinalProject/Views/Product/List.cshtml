@@ -8,115 +8,279 @@
     RouteDictionary routes = Model.CurrentRoute.Clone();
 }
 
-<h1>Product Catalog</h1>
-
-@* filter form *@
-<form asp-action="Filter" method="post" class="form-inline">
-    <label>Brand: </label>
-    <select name="filter" class="form-control m-2"
-            asp-items="@(new SelectList(
-            Model.Brands, "BrandId", "FullName", current.BrandFilter))">
-        <option value="@ProductsGridDTO.DefaultFilter">All</option>
-    </select>
-
-    <label>Category: </label>
-    <select name="filter" class="form-control m-2"
-            asp-items="@(new SelectList(
-            Model.Categories, "CategoryId", "Name", current.CategoryFilter))">
-        <option value="@ProductsGridDTO.DefaultFilter">All</option>
-    </select>
-
-    <label>Price: </label>
-    <select name="filter" class="form-control m-2"
-            asp-items="@(new SelectList(
-            Model.Prices, "Key", "Value", current.PriceFilter))">
-        <option value="@ProductsGridDTO.DefaultFilter">All</option>
-    </select>
-
-    <button type="submit" class="btn btn-primary mr-2">Filter</button>
-    <button type="submit" class="btn btn-primary"
-            name="clear" value="true">
-        Clear
-    </button>
-</form>
-
-@* add to cart form *@
-<form asp-action="Add" asp-controller="Cart" method="post">
-    <table class="table table-bordered table-striped table-sm">
-        @* for each table column, update the route dictionary with the field to sort by, and then use
-            that route dictionary and the current route to create route segments for sorting link *@
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    @{ routes.SetSortAndDirection(nameof(Product.Title), current); }
-                    <a asp-action="List" asp-all-route-data="@routes"
-                       class="text-white">Title</a>
-                </th>
-                <th>
-                    Brands(s)
-                </th>
-                <th>
-                    @{ routes.SetSortAndDirection(nameof(Category), current); }
-                    <a asp-action="List" asp-all-route-data="@routes"
-                       class="text-white">Category</a>
-                </th>
-                <th>
-                    @{ routes.SetSortAndDirection(nameof(Product.Price), current); }
-                    <a asp-action="List" asp-all-route-data="@routes"
-                       class="text-white">Price</a>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Product product in Model.Products)
-            {
-                <tr>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@product.ProductId"
-                           asp-route-slug="@product.Title.Slug()">
-                            @product.Title
+<div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="active">Shop </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="shop-area pt-95 pb-100 section-padding-1">
+    <div class="container-fluid">
+        <div class="row flex-row-reverse">
+            <div class="col-lg-9">
+                <div class="shop-top-bar">
+                    <div class="select-shoing-wrap">
+                        <div class="shop-select">
+                            <select>
+                                <option value="">Sort by newness</option>
+                                <option value="">A to Z</option>
+                                <option value=""> Z to A</option>
+                                <option value="">In stock</option>
+                            </select>
+                        </div>
+                        <p>Showing 1–12 of 20 result</p>
+                    </div>
+                    <div class="shop-tab nav">
+                        <a class="active" href="#shop-1" data-toggle="tab">
+                            <i class="fa fa-table"></i>
                         </a>
-                    </td>
-                    <td>
-                        @foreach (var ba in product.ProductBrands)
+                        <a href="#shop-2" data-toggle="tab">
+                            <i class="fa fa-list-ul"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="shop-bottom-area mt-35">
+                    <div class="tab-content jump">
+                        <div id="shop-1" class="tab-pane active">
+                            <form asp-action="Add" asp-controller="Cart" method="post">
+                                <div class="row">
+                                    @foreach (Product product in Model.Products)
+                                    {
+                                        <div class="col-xl-4 col-md-4 col-lg-4 col-sm-6">
+                                            <div class="product-wrap mb-25 scroll-zoom">
+                                                <div class="product-img">
+                                                    <a href="#">
+                                                        <img class="default-img" src="~/img/product/pro-1.jpg" alt="">
+                                                        <img class="hover-img" src="~/img/product/pro-1-1.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <h2>
+                                                        <a asp-action="Details" asp-route-id="@product.ProductId"
+                                                       asp-route-slug="@product.Title.Slug()">
+                                                            @product.Title
+                                                        </a>
+                                                    </h2>
+                                                    <h3>@product.Category?.Name</h3>
+                                                    <h3>@product.Price.ToString("c")</h3>
+                                                    <td>
+                                                        <button type="submit" name="id" value="@product.ProductId"
+                                                                class="btn btn-primary">
+                                                            Add To Cart
+                                                        </button>
+                                                    </td>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                             
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="pro-pagination-style text-center mt-30">
+
+                    @* paging links *@
+                    @{
+                        @* Reset the route dictionary to the current route values. This is necessary
+                    to clear the changes made while creating the sorting links above. Clone so
+                    don't overwrite current route segment values. *@
+                        routes = Model.CurrentRoute.Clone();
+
+                        @* update route dictionary with page number in 'i' and then use
+                    updated route dictionary to create route segments for paging link.*@
+                        for (int i = 1; i <= Model.TotalPages; i++)
                         {
-                            <p>
-                                <a asp-action="Details" asp-controller="Brand"
-                                   asp-route-id="@ba.BrandId"
-                                   asp-route-slug="@ba.Brand.FullName.Slug()">
-                                    @ba.Brand.FullName
-                                </a>
-                            </p>
+                            routes.PageNumber = i;
+                            <a asp-action="List" asp-all-route-data="@routes"
+                           class="btn btn-outline-primary @Nav.Active(i, current.PageNumber)">@i</a>
                         }
-                    </td>
-                    <td>@product.Category?.Name</td>
-                    <td>@product.Price.ToString("c")</td>
-                    <td>
-                        <button type="submit" name="id" value="@product.ProductId"
-                                class="btn btn-primary">
-                            Add To Cart
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</form>
+                    }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar-style mr-30">
+                    <form asp-action="Filter" method="post" class="form-inline">
+                        <div class="sidebar-widget">
+                            <h4 class="pro-sidebar-title">Brand: </h4>
+                            <div class="pro-sidebar-search mb-50 mt-25">
+                                <select name="filter" class="form-control m-2"
+                                        asp-items="@(new SelectList(Model.Brands, "BrandId", "FullName", current.BrandFilter))">
+                                    <option value="@ProductsGridDTO.DefaultFilter">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sidebar-widget" style="width:100%">
+                            <h4 class="pro-sidebar-title">Category: </h4>
+                            <div class="pro-sidebar-search mb-50 mt-25">
+                                <select name="filter" class="form-control m-2"
+                                        asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name", current.CategoryFilter))">
+                                    <option value="@ProductsGridDTO.DefaultFilter">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sidebar-widget" style="width:100%">
+                            <h4 class="pro-sidebar-title">Price: </h4>
+                            <div class="pro-sidebar-search mb-50 mt-25">
+                                <select name="filter" class="form-control m-2"
+                                        asp-items="@(new SelectList(Model.Prices, "Key", "Value", current.PriceFilter))">
+                                    <option value="@ProductsGridDTO.DefaultFilter">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sidebar-widget" style="width:100%">
+                            <button type="submit" class="btn btn-primary mr-2">Filter</button>
+                            <button type="submit" class="btn btn-primary"
+                                    name="clear" value="true">
+                                Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-@* paging links *@
-@{
-    @* Reset the route dictionary to the current route values. This is necessary
-        to clear the changes made while creating the sorting links above. Clone so
-        don't overwrite current route segment values. *@
-    routes = Model.CurrentRoute.Clone();
 
-    @* update route dictionary with page number in 'i' and then use
-        updated route dictionary to create route segments for paging link.*@
-    for (int i = 1; i <= Model.TotalPages; i++)
-    {
-        routes.PageNumber = i;
-        <a asp-action="List" asp-all-route-data="@routes"
-           class="btn btn-outline-primary @Nav.Active(i, current.PageNumber)">@i</a>
-    }
-}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="tab-content quickview-big-img">
+                            <div id="pro-1" class="tab-pane fade show active">
+                                <img src="~/img/product/quickview-l1.jpg" alt="">
+                            </div>
+                            <div id="pro-2" class="tab-pane fade">
+                                <img src="~/img/product/quickview-l2.jpg" alt="">
+                            </div>
+                            <div id="pro-3" class="tab-pane fade">
+                                <img src="~/img/product/quickview-l3.jpg" alt="">
+                            </div>
+                            <div id="pro-4" class="tab-pane fade">
+                                <img src="~/img/product/quickview-l2.jpg" alt="">
+                            </div>
+                        </div>
+                        <!-- Thumbnail Large Image End -->
+                        <!-- Thumbnail Image End -->
+                        <div class="quickview-wrap mt-15">
+                            <div class="quickview-slide-active owl-carousel nav nav-style-1" role="tablist">
+                                <a class="active" data-toggle="tab" href="#pro-1"><img src="~/img/product/quickview-s1.jpg" alt=""></a>
+                                <a data-toggle="tab" href="#pro-2"><img src="~/img/product/quickview-s2.jpg" alt=""></a>
+                                <a data-toggle="tab" href="#pro-3"><img src="~/img/product/quickview-s3.jpg" alt=""></a>
+                                <a data-toggle="tab" href="#pro-4"><img src="~/img/product/quickview-s2.jpg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-xs-12">
+                        <div class="product-details-content quickview-content">
+                            <h2>Products Name Here</h2>
+                            <div class="product-details-price">
+                                <span>$18.00 </span>
+                                <span class="old">$20.00 </span>
+                            </div>
+                            <div class="pro-details-rating-wrap">
+                                <div class="pro-details-rating">
+                                    <i class="fa fa-star-o yellow"></i>
+                                    <i class="fa fa-star-o yellow"></i>
+                                    <i class="fa fa-star-o yellow"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                                <span>3 Reviews</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                            <div class="pro-details-list">
+                                <ul>
+                                    <li>- 0.5 mm Dail</li>
+                                    <li>- Inspired vector icons</li>
+                                    <li>- Very modern style  </li>
+                                </ul>
+                            </div>
+                            <div class="pro-details-size-color">
+                                <div class="pro-details-color-wrap">
+                                    <span>Color</span>
+                                    <div class="pro-details-color-content">
+                                        <ul>
+                                            <li class="blue"></li>
+                                            <li class="maroon active"></li>
+                                            <li class="gray"></li>
+                                            <li class="green"></li>
+                                            <li class="yellow"></li>
+                                            <li class="white"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="pro-details-size">
+                                    <span>Size</span>
+                                    <div class="pro-details-size-content">
+                                        <ul>
+                                            <li><a href="#">s</a></li>
+                                            <li><a href="#">m</a></li>
+                                            <li><a href="#">l</a></li>
+                                            <li><a href="#">xl</a></li>
+                                            <li><a href="#">xxl</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pro-details-quality">
+                                <div class="cart-plus-minus">
+                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
+                                </div>
+                                <div class="pro-details-cart btn-hover">
+                                    <a href="#">Add To Cart</a>
+                                </div>
+                                <div class="pro-details-wishlist">
+                                    <a href="#"><i class="fa fa-heart-o"></i></a>
+                                </div>
+                                <div class="pro-details-compare">
+                                    <a href="#"><i class="pe-7s-shuffle"></i></a>
+                                </div>
+                            </div>
+                            <div class="pro-details-meta">
+                                <span>Categories :</span>
+                                <ul>
+                                    <li><a href="#">Minimal,</a></li>
+                                    <li><a href="#">Furniture,</a></li>
+                                    <li><a href="#">Electronic</a></li>
+                                </ul>
+                            </div>
+                            <div class="pro-details-meta">
+                                <span>Tag :</span>
+                                <ul>
+                                    <li><a href="#">Fashion, </a></li>
+                                    <li><a href="#">Furniture,</a></li>
+                                    <li><a href="#">Electronic</a></li>
+                                </ul>
+                            </div>
+                            <div class="pro-details-social">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

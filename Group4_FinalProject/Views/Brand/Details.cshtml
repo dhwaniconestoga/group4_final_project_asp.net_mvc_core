@@ -4,28 +4,49 @@
     ViewData["Title"] = " | Brand";
 }
 
-<h1>Brand</h1>
+<div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="active">Brands </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="Blog-area pt-100 pb-100 blog-no-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                  
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="blog-wrap-2 mb-30">
+                                <div class="blog-img-2">
+                                    <a href="single-product.html"><img src="assets/img/blog/blog-9.jpg" alt=""></a>
+                                </div>
+                                <div class="blog-content-2">
+                                <h4><a>@Model.Name</a></h4>
+                                @foreach (var ba in Model.ProductBrands)
+                                    {
+                                        <p>
+                                            <a asp-action="Details" asp-controller="Product"
+                                       asp-route-id="@ba.ProductId"
+                                       asp-route-slug="@ba.Product.Title.Slug()">
+                                                @ba.Product.Title
+                                            </a>
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
-<table class="table table-bordered table-sm">
-    <thead>
-        <tr class="thead-dark">
-            <th>@Model.FullName</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @foreach (var ba in Model.ProductBrands)
-                {
-                    <p>
-                        <a asp-action="Details" asp-controller="Product"
-                           asp-route-id="@ba.ProductId"
-                           asp-route-slug="@ba.Product.Title.Slug()">
-                            @ba.Product.Title
-                        </a>
-                    </p>
-                }
-            </td>
-        </tr>
-    </tbody>
-</table>

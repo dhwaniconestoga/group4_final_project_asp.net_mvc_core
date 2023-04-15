@@ -7,61 +7,66 @@
     RouteDictionary routes = Model.CurrentRoute.Clone();
 }
 
-<h1>Brand Catalog</h1>
+<div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="active">Brands </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="Blog-area pt-100 pb-100 blog-no-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    @foreach (Brand brand in Model.Brands)
+                    {
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="blog-wrap-2 mb-30">
+                                <div class="blog-img-2">
+                                    <a href="single-product.html"><img src="assets/img/blog/blog-9.jpg" alt=""></a>
+                                </div>
+                                <div class="blog-content-2">
+                                    <h4><a asp-action="Details" asp-route-id="@brand.BrandId" asp-route-slug="@brand.Name.Slug()">@brand.Name</a></h4>
+                                    @foreach (var ba in brand.ProductBrands)
+                                    {
+                                        <p>
+                                            <a asp-action="Details" asp-controller="Product"
+                                       asp-route-id="@ba.ProductId"
+                                       asp-route-slug="@ba.Product.Title.Slug()">
+                                                @ba.Product.Title
+                                            </a>
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="pro-pagination-style text-center mt-20">
+                    @* paging links *@
+                    @{
+                        @* Reset the route dictionary to the current route values. This is necessary
+                    to clear the changes made while creating the sorting links above. Clone so
+                    don't overwrite current route segment values. *@
+                        routes = Model.CurrentRoute.Clone();
 
-<table class="table table-bordered table-striped table-sm">
-    @* for the name columns, update the route dictionary with the field to sort by, and then use
-        that route dictionary and the current route to create route segments for sorting link *@
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @{ routes.SetSortAndDirection(nameof(Brand.Name), current); }
-                <a asp-action="List" asp-all-route-data="@routes"
-                   class="text-white">Name</a>
-            </th>
-            <th>Product(s)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Brand brand in Model.Brands)
-        {
-        <tr>
-            <td>
-                    <a asp-action="Details" asp-route-id="@brand.BrandId"
-                   asp-route-slug="@brand.FullName.Slug()">
-                        @brand.Name
-                </a>
-            </td>
-            <td>
-                    @foreach (var ba in brand.ProductBrands)
-                {
-                    <p>
-                        <a asp-action="Details" asp-controller="Product"
-                           asp-route-id="@ba.ProductId"
-                           asp-route-slug="@ba.Product.Title.Slug()">
-                                @ba.Product.Title
-                        </a>
-                    </p>
-                }
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-
-@* paging links *@
-@{
-    @* Reset the route dictionary to the current route values. This is necessary
-        to clear the changes made while creating the sorting links above. Clone so
-        don't overwrite current route segment values. *@
-    routes = Model.CurrentRoute.Clone();
-
-    @* update route dictionary with page number in 'i' and then use
-        updated route dictionary to create route segments for paging link. *@
-    for (int i = 1; i <= Model.TotalPages; i++)
-    {
-        routes.PageNumber = i;
-        <a asp-action="List" asp-all-route-data="@routes"
-           class="btn btn-outline-primary @Nav.Active(i, current.PageNumber)">@i</a>
-    }
-}
+                        @* update route dictionary with page number in 'i' and then use
+                    updated route dictionary to create route segments for paging link. *@
+                        for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            routes.PageNumber = i;
+                            <a asp-action="List" asp-all-route-data="@routes"
+                           class="btn btn-outline-primary @Nav.Active(i, current.PageNumber)">@i</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
