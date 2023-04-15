@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Group\\Group4_FinalProject\\Group4_FinalProject\\Group4_FinalProject.csproj": {}
+    "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Git\\Group4_FinalProject\\Group4_FinalProject.csproj": {}
   },
   "projects": {
-    "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Group\\Group4_FinalProject\\Group4_FinalProject\\Group4_FinalProject.csproj": {
+    "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Git\\Group4_FinalProject\\Group4_FinalProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Group\\Group4_FinalProject\\Group4_FinalProject\\Group4_FinalProject.csproj",
+        "projectUniqueName": "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Git\\Group4_FinalProject\\Group4_FinalProject.csproj",
         "projectName": "Group4_FinalProject",
-        "projectPath": "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Group\\Group4_FinalProject\\Group4_FinalProject\\Group4_FinalProject.csproj",
+        "projectPath": "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Git\\Group4_FinalProject\\Group4_FinalProject.csproj",
         "packagesPath": "C:\\Users\\dhwan\\.nuget\\packages\\",
-        "outputPath": "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Group\\Group4_FinalProject\\Group4_FinalProject\\obj\\",
+        "outputPath": "D:\\Canada\\College\\Winter 2023\\PROG8770-23W-Sec2-Advanced Programming with .NET\\Git\\Group4_FinalProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dhwan\\AppData\\Roaming\\NuGet\\NuGet.Config",
