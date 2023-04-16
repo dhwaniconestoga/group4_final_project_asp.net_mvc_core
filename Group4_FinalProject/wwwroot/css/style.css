@@ -3923,7 +3923,10 @@ a.default-btn {
     position: relative;
     overflow: hidden; }
     .product-wrap .product-img img {
-      width: 100%; }
+        width: 250px;
+        height: 250px;
+        margin-left: 35px;
+    }
     .product-wrap .product-img span {
       position: absolute;
       top: 12px;
@@ -4020,8 +4023,11 @@ a.default-btn {
   .product-wrap .product-content {
     margin: 20px 0 0; }
     .product-wrap .product-content h3 {
-      font-size: 16px;
+      font-size: 15px;
       margin: 0; }
+    .product-wrap .product-content a {
+        color: black;
+    }
     .product-wrap .product-content .product-rating {
       margin: 3px 0 3px; }
       .product-wrap .product-content .product-rating i {
@@ -4031,11 +4037,12 @@ a.default-btn {
         .product-wrap .product-content .product-rating i.yellow {
           color: #ffa900; }
     .product-wrap .product-content .product-price span {
-      font-size: 15px;
-      color: #000;
-      font-weight: 500;
-      margin: 0 9px;
-      position: relative; }
+        font-size: 15px;
+        color: #fe5252;
+        font-weight: 500;
+        margin: 0 9px;
+        position: relative;
+    }
       .product-wrap .product-content .product-price span::before {
         position: absolute;
         content: "";
@@ -6993,15 +7000,44 @@ a.default-btn {
   line-height: 1;
   background-color: #343538;
   color: #fff;
-  padding: 14px 32px 15px;
+  padding: 10px 20px 10px;
   border: 1px solid transparent;
   z-index: 1; }
   @media only screen and (max-width: 767px) {
     .shop-list-wrap .shop-list-content .shop-list-btn a {
       padding: 10px 20px 11px;
       font-size: 13px; } }
-  .shop-list-wrap .shop-list-content .shop-list-btn a:hover {
-    border: 1px solid #a749ff; }
+.shop-list-wrap .shop-list-content .shop-list-btn a:hover {
+    
+    border: 1px solid #a749ff;
+}
+
+.shop-list-btn .btn {
+    font-size: 15px;
+    color: #343538;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: inline-block;
+    line-height: 1;
+    background-color: #343538;
+    color: #fff;
+    margin: 10px;
+    padding: 10px 20px 10px;
+    border: 1px solid transparent;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 767px) {
+    .shop-list-btn .btn {
+        padding: 10px 20px 11px;
+        font-size: 13px;
+    }
+}
+
+.shop-list-btn .btn:hover {
+    background: #a749ff;
+    border: 1px solid #a749ff;
+}
 
 .shop-list-wrap:hover .product-wrap .hover-img {
   opacity: 1;

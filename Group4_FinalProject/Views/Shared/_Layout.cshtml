@@ -14,17 +14,14 @@
     <meta name="viewport" content="width=device-width" />
     <title>Electronics Store @ViewBag.Title</title>
     <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     @RenderSection("scripts", false)
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimalist eCommerce Bootstrap 4 Template - SHARED ON THEMELOCK.COM</title>
+    <title>Sheincart</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -89,7 +86,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2 col-md-6 col-4">
                         <div class="logo">
-                            <a href="index.html">
+                            <a asp-action="Index" asp-controller="Home" asp-area="">
                                 <img alt="" src="~/img/logo/logo.png">
                             </a>
                         </div>
@@ -115,7 +112,7 @@
                                         </a>
                                     </li>
                                     <li><a href="about"><span class="fas fa-users"></span>&nbsp;About </a></li>
-                                    <li><a href="contact"><span class="fas fa-address-book"></span>&nbsp;Contact</a></li>
+                                    <li><a asp-action="Contact" asp-controller="Home" asp-area=""><span class="fas fa-address-book"></span>&nbsp;Contact</a></li>
                                    
                                     <li class="@Nav.Active("Admin", current)">
                                         <a asp-action="Index" asp-controller="Product" asp-area="Admin">
@@ -183,7 +180,14 @@
                             </div>
 
                             <div class="same-style cart-wrap">
-                                <button class="icon-cart"><a asp-action="Index" asp-controller="Cart" asp-area=""><i class="pe-7s-shopbag"></i><span class="count-style">@cart.Count</span></a></button>
+                                <button class="icon-cart">
+                                    <a asp-action="Index" asp-controller="Cart" asp-area=""><i class="pe-7s-shopbag"></i>
+                                        @if (cart.Count >0)
+                                        {
+                                            <span class="count-style">@cart.Count</span>
+                                        }
+                                    </a>
+                                    </button>
                             </div>
                         </div>
                     </div>
@@ -218,7 +222,7 @@
                                 <img alt="" src="~/img/logo/logo.png">
                             </a>
                         </div>
-                        <p>© 2023 <a href="#">Flone</a>.<br> All Rights Reserved</p>
+                        <p>© 2023 <a href="#">Sheincart</a>.<br> All Rights Reserved</p>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4">

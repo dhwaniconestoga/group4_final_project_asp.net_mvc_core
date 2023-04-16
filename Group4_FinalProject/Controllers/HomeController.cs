@@ -17,5 +17,17 @@ namespace Group4_FinalProject.Controllers
 
             return View(random);
         }
+
+        public ViewResult About()
+        {
+
+            return View();
+        }
+
+        public ViewResult Contact()
+        {
+           
+            return View();
+        }
     }
 }

@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="product-details dec-img-wrap">
-                    <img src="~/img/product-details/large-2.jpg" alt="">
+                    <img src="~/images/products/@Model.ImageName" alt="" />
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -40,13 +40,9 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                    
                     <div class="pro-details-list">
-                        <ul>
-                            <li>- 0.5 mm Dail</li>
-                            <li>- Inspired vector icons</li>
-                            <li>- Very modern style  </li>
-                        </ul>
+                        <p>@Html.Raw(Model.Description)</p>
                     </div>
                     <div class="pro-details-size-color">
                         <div class="pro-details-color-wrap">
@@ -66,16 +62,31 @@
                         <div class="pro-details-cart btn-hover">
                             <form asp-action="Add" asp-controller="Cart" method="post">
                                 <button type="submit" name="id" value="@Model.ProductId"
-                                        class="btn btn-primary">
+                                        class="btn btn-dark">
                                     Add To Cart
                                 </button>
                             </form>
                         </div>
                     </div>
                     <div class="pro-details-meta">
-                        <span>Categories :</span>
+                        <span>Category :</span>
                         <ul>
                             <li><a href="#">@Model.Category.Name</a></li>
+                        </ul>
+                        
+                    </div>
+                    <div class="pro-details-meta">
+                        
+                        <span>Brand :</span>
+                        <ul>
+                            @foreach (var keyValuePair in Model.ProductBrands)
+                            {
+                                <li>
+                                    <a href="#">
+                                        @keyValuePair.Brand.Name
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                     <div class="pro-details-social">
