@@ -18,6 +18,9 @@ namespace Group4_FinalProject.Models
         [StringLength(500)]
         public string Description { get; set; }
 
+        [StringLength(200)]
+        public string Brand { get; set; }
+
         [Range(0.0, 1000000.0, ErrorMessage = "Price must be more than 0.")]
         public double Price { get; set; }
 

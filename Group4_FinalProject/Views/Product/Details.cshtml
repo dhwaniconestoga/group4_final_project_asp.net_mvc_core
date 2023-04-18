@@ -69,7 +69,14 @@
                         </div>
                     </div>
                     <div class="pro-details-meta">
-                        <span>Category :</span>
+                        <span><b>Brand :</b></span>
+                        <ul>
+                            <li><a href="#">@Model.Brand</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="pro-details-meta">
+                        <span><b>Category :</b></span>
                         <ul>
                             <li><a href="#">@Model.Category.Name</a></li>
                         </ul>
@@ -77,11 +84,11 @@
                     </div>
                     <div class="pro-details-meta">
                         
-                        <span>Brand :</span>
-                        <ul>
+                        <span><b>Seller :</b></span>
+                        <ul class="list-group list-group-flush">
                             @foreach (var keyValuePair in Model.ProductBrands)
                             {
-                                <li>
+                                <li class="class=" list-group-item"">
                                     <a href="#">
                                         @keyValuePair.Brand.Name
                                     </a>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Group4_FinalProject.Models;
+using System;
 
 namespace Group4_FinalProject.Controllers
 {
@@ -110,6 +111,19 @@ namespace Group4_FinalProject.Controllers
             return RedirectToAction("Index");
         }
 
-        public ViewResult Checkout() => View();
+        public ViewResult Checkout() {
+            var cart = GetCart();
+            var builder = new ProductsGridBuilder(HttpContext.Session);
+
+            var vm = new CartViewModel
+            {
+                List = cart.List,
+                Subtotal = cart.Subtotal,
+                ProductGridRoute = builder.CurrentRoute
+            };
+            return View(vm);
+           
+        }
+
     }
 }

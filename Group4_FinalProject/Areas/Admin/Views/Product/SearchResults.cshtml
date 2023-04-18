@@ -19,8 +19,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Product</th>
-                                    <th scope="col">Category</th>
                                     <th scope="col">Brand</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Seller</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -33,6 +34,7 @@
                                            asp-area="" asp-route-id="@product.ProductId"
                                            asp-route-slug="@product.Title.Slug()">@product.Title</a>
                                         </td>
+                                        <td>@product.Brand</td>
                                         <td>@product.Category.Name</td>
                                         <td>
                                             @foreach (ProductBrand ba in product.ProductBrands)

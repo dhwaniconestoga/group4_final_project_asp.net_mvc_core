@@ -17,6 +17,7 @@ namespace Group4_FinalProject.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Order { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,9 @@ namespace Group4_FinalProject.Models
             modelBuilder.Entity<Product>().HasOne(b => b.Category)
                 .WithMany(g => g.Products)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Order>().HasKey(or => new { or.OrderId });
 
             // seed initial data
             modelBuilder.ApplyConfiguration(new SeedCategories());

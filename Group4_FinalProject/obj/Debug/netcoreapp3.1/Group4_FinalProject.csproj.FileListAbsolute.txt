@@ -254,3 +254,4 @@ D:\Canada\College\Winter 2023\PROG8770-23W-Sec2-Advanced Programming with .NET\G
 D:\Canada\College\Winter 2023\PROG8770-23W-Sec2-Advanced Programming with .NET\Git\Group4_FinalProject\obj\Debug\netcoreapp3.1\Group4_FinalProject.pdb
 D:\Canada\College\Winter 2023\PROG8770-23W-Sec2-Advanced Programming with .NET\Git\Group4_FinalProject\obj\Debug\netcoreapp3.1\Group4_FinalProject.genruntimeconfig.cache
 D:\Canada\College\Winter 2023\PROG8770-23W-Sec2-Advanced Programming with .NET\Git\Group4_FinalProject\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contact.cshtml.g.cs
+D:\Canada\College\Winter 2023\PROG8770-23W-Sec2-Advanced Programming with .NET\Git\Group4_FinalProject\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Thankyou.cshtml.g.cs

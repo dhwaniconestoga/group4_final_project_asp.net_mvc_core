@@ -52,6 +52,17 @@ namespace Group4_FinalProject.Models
             }
         }
 
+        private Repository<Order> Orderdata;
+        public Repository<Order> Order
+        {
+            get
+            {
+                if (Orderdata == null)
+                    Orderdata = new Repository<Order>(context);
+                return Orderdata;
+            }
+        }
+
         public void DeleteCurrentProductBrands(Product product)
         {
             var currentBrands = ProductBrands.List(new QueryOptions<ProductBrand>

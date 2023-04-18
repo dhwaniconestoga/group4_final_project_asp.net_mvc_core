@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CartViewModel
+
+@{
     ViewData["Title"] = "Checkout";
 }
 
@@ -14,6 +16,7 @@
         </div>
     </div>
 </div>
+@using (Html.BeginForm("PlaceOrder", "CheckOut", FormMethod.Post)){
 <div class="checkout-area pt-95 pb-100">
     <div class="container">
         <div class="row">
@@ -24,69 +27,60 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>First Name</label>
-                                <input type="text">
+                                    <input name="FirstName" type="text">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Last Name</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="billing-info mb-20">
-                                <label>Company Name</label>
-                                <input type="text">
+                                    <input name="LastName" type="text">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-select mb-20">
                                 <label>Country</label>
-                                <select>
-                                    <option>Select a country</option>
-                                    <option>Azerbaijan</option>
-                                    <option>Bahamas</option>
-                                    <option>Bahrain</option>
-                                    <option>Bangladesh</option>
-                                    <option>Barbados</option>
+                                <select name="Country">
+                                    <option value="">Select a country</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="USA">United States of America</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-info mb-20">
                                 <label>Street Address</label>
-                                <input class="billing-address" placeholder="House number and street name" type="text">
+                                    <input name="Address" class="billing-address" placeholder="House number and street name" type="text">
                                 <input placeholder="Apartment, suite, unit etc." type="text">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-info mb-20">
                                 <label>Town / City</label>
-                                <input type="text">
+                                <input type="text" name="City">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>State / County</label>
-                                <input type="text">
+                                <input type="text" name="State">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Postcode / ZIP</label>
-                                <input type="text">
+                                <input type="text" name="PostCode">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Phone</label>
-                                <input type="text">
+                                    <input type="text" name="Mobile">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Email Address</label>
-                                <input type="text">
+                                <input type="text" name="Email">
                             </div>
                         </div>
                     </div>
@@ -182,8 +176,14 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    <li><span class="order-middle-left">Product Name  X  1</span> <span class="order-price">$329 </span></li>
-                                    <li><span class="order-middle-left">Product Name  X  1</span> <span class="order-price">$329 </span></li>
+                                    @{
+                                        int sum = 0;
+                                    }
+                                    @foreach (CartItem item in Model.List)
+                                    {
+                                        sum += Convert.ToInt32(item.Product.Price);
+                                        <li><span class="order-middle-left">@item.Product.Title  X  @item.Quantity</span> <span class="order-price"> @item.Product.Price.ToString("c") </span></li>
+                                    }
                                 </ul>
                             </div>
                             <div class="your-order-bottom">
@@ -195,7 +195,7 @@
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">Total</li>
-                                    <li>$329</li>
+                                    <li>@sum.ToString("c")</li>
                                 </ul>
                             </div>
                         </div>
@@ -249,10 +249,11 @@
                         </div>
                     </div>
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="#">Place Order</a>
+                        <input type="submit" value="Place Order" class="btn btn-success btn-hover" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+}

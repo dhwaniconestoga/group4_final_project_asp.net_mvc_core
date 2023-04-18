@@ -40,5 +40,6 @@ namespace Group4_FinalProject.Areas.Admin.Controllers
                 return Json(validate.ErrorMessage);
             }
         }
+
     }
 }
